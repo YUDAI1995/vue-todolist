@@ -13,7 +13,10 @@
     "express": "^4.17.1",
     "lodash": "^4.17.20",
     "socket.io": "^2.3.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "nodemon": "^2.0.15",
+    "sass": "^1.44.0",
+    "sass-loader": "^8.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -22,10 +25,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0",
-    "nodemon": "^2.0.15",
-    "sass": "^1.44.0",
-    "sass-loader": "^8.0.2"
+    "eslint-plugin-vue": "^7.0.0-0"
   },
   "eslintConfig": {
     "root": true,
