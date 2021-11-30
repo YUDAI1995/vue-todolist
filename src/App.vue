@@ -1,60 +1,61 @@
 <template>
-<header>
-  <div class="inner">
-    <h1>todolist</h1>
-  </div>
-</header>
-<main>
-  <div class="inner">
-    <InputForm @onsubmit='addTask_socketio'></InputForm>
-    <p>{{$data.task}}</p>
-  </div>
-  <div class="inner">
-    <TodoList :todoList="$data.todoList" @check="onCheckTodo" @delete="onDeleteTodo" />
-  </div>
-</main>
-<footer>
-  <div class="inner">
-    <p><small class="copy">work</small></p>
-  </div>
-</footer>
+  <header>
+    <div class="inner">
+      <h1>Todolist</h1>
+    </div>
+  </header>
+  <main>
+    <div class="inner">
+      <InputForm @onsubmit="addTask_socketio"></InputForm>
+      <p>{{ $data.task }}</p>
+    </div>
+    <div class="inner">
+      <TodoList
+        :todoList="$data.todoList"
+        @check="onCheckTodo"
+        @delete="onDeleteTodo"
+      />
+    </div>
+  </main>
+  <Footer />
 </template>
 
 <script>
-import InputForm from './components/InputForm.vue'
-import TodoList from './components/TodoList.vue'
+import InputForm from './components/InputForm.vue';
+import TodoList from './components/TodoList.vue';
+import Footer from './components/Footer.vue';
 import io from 'socket.io-client';
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
   name: 'App',
   components: {
     InputForm,
-    TodoList
+    TodoList,
+    Footer,
   },
-  data () {
+  data() {
     const todoList = [
-      {
-        isDone: false,
-        text: '薬'
-      },
-      {
-        isDone: true,
-        text: 'メモ'
-      }
+      // {
+      //   isDone: false,
+      //   text: '薬',
+      // },
+      // {
+      //   isDone: true,
+      //   text: 'メモ',
+      // },
     ];
     return {
-      socket : io('localhost:4000'),
+      //socket: io(process.env.VUE_APP_PORT),
+      socket: io('/'),
       task: '',
-      // idを順番につける
       todoList: todoList.map((item, index) => ({ ...item, id: index })),
-      // 次のTODOに降るID番号
-      nextTodoId: todoList.length
-    }
+      nextTodoId: todoList.length,
+    };
   },
   methods: {
     /**
-     * Enterボタンを押したとき
+     * TODO追加
      */
     onSubmit_socketio(e) {
       e.preventDefault();
@@ -74,37 +75,36 @@ export default {
       }
     },
     /**
-     * TODOの削除ボタンがクリックされた時
+     * TODO削除
      * @param {number} todoId - TODOのID
      */
     onDeleteTodo(todoId) {
-      const index = _.findIndex(this.$data.todoList, { id: todoId });
+      const index = this.todoList.findIndex(({ id }) => id === todoId);
       if (index !== -1) {
         this.$data.todoList.splice(index, 1);
       }
-    }
-  }
-  ,
+    },
+  },
   created() {
     this.socket.on('connect', () => {
       console.log('connected!');
     });
 
     /**
-     * 送信された時
-     * @param {string} task - テキスト
+     * 送信時
+     * @param {string} TODOTASK
      */
     this.socket.on('addtask', (task) => {
       console.log(task);
-        this.$data.todoList.unshift({
+      this.$data.todoList.unshift({
         id: this.$data.nextTodoId,
         isDone: false,
-        text: task
+        text: task,
       });
       this.$data.nextTodoId += 1;
     });
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -138,13 +138,4 @@ header h1 {
   display: flex;
   align-items: center;
 }
-footer {
-  background-color: #e7e7e7;
-  margin-top: 20px;
-  padding: 12px 6px;
-}
-footer .copy {
-  font-size: 18px;
-}
-
 </style>
