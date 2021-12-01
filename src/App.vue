@@ -87,7 +87,7 @@ export default {
   },
   created() {
     this.socket.on('connect', () => {
-      console.log('connected!');
+      //console.log('connected!');
     });
 
     /**
