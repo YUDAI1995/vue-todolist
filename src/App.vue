@@ -1,9 +1,5 @@
 <template>
-  <header>
-    <div class="inner">
-      <h1>Todolist</h1>
-    </div>
-  </header>
+  <Header />
   <main>
     <div class="inner">
       <InputForm @onsubmit="addTask_socketio"></InputForm>
@@ -23,6 +19,7 @@
 <script>
 import InputForm from './components/InputForm.vue';
 import TodoList from './components/TodoList.vue';
+import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import io from 'socket.io-client';
 import _ from 'lodash';
@@ -32,6 +29,7 @@ export default {
   components: {
     InputForm,
     TodoList,
+    Header,
     Footer,
   },
   data() {
@@ -46,8 +44,8 @@ export default {
       // },
     ];
     return {
-      //socket: io(process.env.VUE_APP_PORT),
-      socket: io('/'),
+      socket: io(process.env.VUE_APP_PORT),
+      //socket: io('/'),
       task: '',
       todoList: todoList.map((item, index) => ({ ...item, id: index })),
       nextTodoId: todoList.length,
@@ -116,26 +114,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #333333;
 }
 body {
   margin: 0;
 }
+main {
+  display: block;
+  min-height: calc(100vh - 200px);
+}
 .inner {
-  width: 920px;
+  max-width: 640px;
   margin: 0 auto;
-}
-header {
-  background-color: #f7fbff;
-  box-shadow: 0 0 4px #b9b9b9;
-  margin: 0 0 20px;
-  padding: 20px 6px;
-}
-header h1 {
-  font-size: 26px;
-  padding-left: 12px;
-  display: flex;
-  align-items: center;
 }
 </style>

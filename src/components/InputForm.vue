@@ -31,6 +31,8 @@ export default {
 .taskForm {
   display: flex;
   justify-content: space-between;
+  max-width: 480px;
+  margin: 0 auto;
 
   input {
     width: calc(100% - 120px);
@@ -39,11 +41,24 @@ export default {
     padding: 8px 16px;
 
     & + button {
-      background-color: #2c61e8;
+      background-color: #2d5ed8;
       color: #ffffff;
+      font-weight: bold;
       width: 120px;
       margin-left: 10px;
       border: 0;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #d6e2ff;
+        color: #1c44a9;
+      }
+
+      &:disabled {
+        background-color: #8aa4e6;
+        color: #ffffff;
+      }
     }
   }
 }

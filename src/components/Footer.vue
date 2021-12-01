@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="inner">
-      <p><small class="copy">&copy; 2021 YUDAI1995</small></p>
+      <p><small class="copy">&copy; 2020 YUDAI1995</small></p>
     </div>
   </footer>
 </template>
@@ -14,9 +14,13 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-  background-color: #e2e2e2;
-  margin-top: 20px;
-  padding: 12px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
+  background-color: #e2e2e2;
+  height: 60px;
+  margin-top: 40px;
+  padding: 12px 6px;
 }
 </style>
