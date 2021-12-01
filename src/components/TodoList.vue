@@ -1,5 +1,5 @@
 <template>
-  <transition-group tag="ul" class="taskList" name="flip">
+  <transition-group tag="ul" class="taskList" name="todo-add">
     <li
       v-for="item in $props.todoList"
       :key="item.id"
@@ -44,12 +44,14 @@ export default {
 
   & > li {
     position: relative;
+    min-height: 32px;
     display: flex;
     align-items: center;
     padding: 0;
+    transition: 0.3s;
 
     & + li {
-      margin-top: 24px;
+      margin-top: 20px;
     }
 
     & > input {
@@ -66,7 +68,7 @@ export default {
       top: 50%;
       right: 0;
       width: 100px;
-      margin-top: -12px;
+      margin-top: -14px;
       padding: 2px 12px 2px 28px;
       transition: 0.3s;
 
@@ -100,6 +102,31 @@ export default {
         &::before {
           background-color: #ffffff;
         }
+      }
+    }
+  }
+
+  .todo-add {
+    &-enter {
+      &-active {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+    }
+
+    &-to {
+      opacity: 1;
+    }
+
+    // 要素が消える時のアニメーション
+    &-leave {
+      &-active {
+        opacity: 1;
+      }
+      &-to {
+        margin: 0;
+        height: 0;
+        opacity: 0;
       }
     }
   }

@@ -44,8 +44,8 @@ export default {
       // },
     ];
     return {
-      socket: io(process.env.VUE_APP_PORT),
-      //socket: io('/'),
+      //socket: io(process.env.VUE_APP_PORT),
+      socket: io('/'),
       task: '',
       todoList: todoList.map((item, index) => ({ ...item, id: index })),
       nextTodoId: todoList.length,
